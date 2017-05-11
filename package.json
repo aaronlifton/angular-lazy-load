@@ -1,0 +1,33 @@
+{
+  "name": "angular-scroll-to",
+  "version": "1.0.0",
+  "description": " scroll to element event handler directive for angular",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaronlifton2/angular-scroll-to.git"
+  },
+  "keywords": [
+    "angular",
+    "scroll",
+    "IntersectionObserver",
+    "directive"
+  ],
+  "author": "Aaron Lifton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aaronlifton2/angular-scroll-to/issues"
+  },
+  "homepage": "https://github.com/aaronlifton2/angular-scroll-to#readme",
+  "devDependencies": {
+    "angular": "^1.6.4",
+    "babel-preset-env": "^1.4.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "jquery": "^3.2.1",
+    "underscore": "^1.8.3"
+  }
+}
