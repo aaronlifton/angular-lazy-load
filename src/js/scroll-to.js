@@ -5,7 +5,8 @@ let ScrollTo = ['$window', ($window) => {
     unobserveInstantly: true,
     useIntersectionObserver: true,
     intersectionRoot: null,
-    intersectionRootMargin: "0px"
+    intersectionRootMargin: "0px",
+    scrollOffset: null
   };
   return {
     restrict: 'A',
@@ -16,7 +17,8 @@ let ScrollTo = ['$window', ($window) => {
         throttleWait: scope.$eval(attrs.scrollToThrottle),
         unobserveInstantly: scope.$eval(attrs.scrollToUnobserve),
         intersectionRoot: scope.$eval(attrs.scrollToRoot),
-        intersectionRootMargin: scope.$eval(attrs.scrollToRootMargin)
+        intersectionRootMargin: scope.$eval(attrs.scrollToRootMargin),
+        scrollOffset: scope.$eval(attrs.scrollOffset)
       };
       let options = defaults;
       for (let k in attrOptions) {
@@ -38,15 +40,16 @@ let ScrollTo = ['$window', ($window) => {
           });
         return io.observe(element[0]);
       } else {
+        let scrollOffset = options.scrollOffset || 0;
         let scrollHandler = _.throttle(function(e) {
           let docViewTop = $($window).scrollTop();
           let docViewBottom = docViewTop + $($window).height();
           let elemTop = $(element).offset().top;
           let elemBottom = elemTop + $(element).height();
-          if ((elemBottom <= docViewBottom) && (elemTop >= docViewTop)) {
+          if ((elemBottom <= docViewBottom + scrollOffset) && (elemTop >= docViewTop - scrollOffset)) {
             scope.$apply(fn);
             if (options.unobserveInstantly) {
-              return $($window).off('scroll');
+              return $($window).off('scroll', scrollHandler);
             }
           }
         }

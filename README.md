@@ -30,7 +30,7 @@ angular.module('myApp', ['angular-scroll-to']).controller('myController',
 
 ### Default options
 ```html
-<div scroll-to="doSomething" scroll-to-threshold="0.1" scroll-to-throttle="20" scroll-to-unobserve="true" scroll-to-root="null" scroll-to-root-margin="0px"></div>
+<div scroll-to="doSomething" scroll-to-threshold="0.1" scroll-to-throttle="20" scroll-to-unobserve="true" scroll-to-root="null" scroll-to-root-margin="0px" scroll-offset="0"></div>
 ```
 
 ## Development
