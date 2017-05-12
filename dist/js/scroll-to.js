@@ -34,7 +34,7 @@ var ScrollTo = ['$window', function ($window) {
         if (options.scrollOffset != null) {
           if (options.intersectionRootMargin) {
             var parts = options.intersectionRootMargin.split(" ").splice(0, 1);
-            parts = [options.scrollOffset + 'px'].concat(parts);
+            parts = parts.concat([options.scrollOffset + 'px']);
             rootMargin = parts.join(" ");
           } else {
             rootMargin = options.scrollOffset + 'px 0px 0px 0px';
