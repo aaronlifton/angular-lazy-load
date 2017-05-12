@@ -1,5 +1,5 @@
 # angular-scroll-to
-Simple angular directive to handle events when a user scrolls to an element. Optionally, you can use IntersectionObserver instead of attaching an event listener to the document.
+Simple angular directive to handle events when a user scrolls to an element. By default, it uses IntersectionObserver instead of attaching an event listener to the document. Optionally, you can use the event listener instead.
 
 [Plunker Demo](https://embed.plnkr.co/q9Zm5IpRd4fpiY83DZIm/)
 
