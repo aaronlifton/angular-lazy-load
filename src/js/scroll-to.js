@@ -34,7 +34,7 @@ let ScrollTo = ['$window', ($window) => {
             parts = parts.concat([`${options.scrollOffset}px`]);
             rootMargin = parts.join(" ");
           } else {
-            rootMargin = `${options.scrollOffset}px 0px 0px 0px`;
+            rootMargin = `0px 0px 0px ${options.scrollOffset}px`;
           }
         }
         var io = new IntersectionObserver(function(entries) {
