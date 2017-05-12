@@ -27,6 +27,16 @@ let ScrollTo = ['$window', ($window) => {
       }
       if (options.useIntersectionObserver &&
         (typeof IntersectionObserver !== 'undefined')) {
+        let rootMargin = "0px";
+        if (options.scrollOffset != null) {
+          if (options.intersectionRootMargin) {
+            let parts = options.intersectionRootMargin.split(" ").splice(0, 1);
+            parts = [`${options.scrollOffset}px`].concat(parts);
+            rootMargin = parts.join(" ");
+          } else {
+            rootMargin = `${options.scrollOffset}px 0px 0px 0px`;
+          }
+        }
         var io = new IntersectionObserver(function(entries) {
           if (entries[0].intersectionRatio == 0) { return; }
           scope.$apply(fn);
