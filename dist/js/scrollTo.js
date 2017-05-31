@@ -1,6 +1,6 @@
 'use strict';
 
-var ScrollTo = ['$window', 'scrollTo', function ($window, scrollTo) {
+var ScrollTo = ['$window', '$timeout', 'scrollTo', function ($window, $timeout, scrollTo) {
   var defaults = {
     intersectionThreshold: 0.1,
     throttleWait: 20,
@@ -20,8 +20,10 @@ var ScrollTo = ['$window', 'scrollTo', function ($window, scrollTo) {
         unobserveInstantly: scope.$eval(attrs.scrollToUnobserve),
         intersectionRoot: scope.$eval(attrs.scrollToRoot),
         intersectionRootMargin: scope.$eval(attrs.scrollToRootMargin),
-        scrollOffset: scope.$eval(attrs.scrollOffset)
+        scrollOffset: scope.$eval(attrs.scrollOffset),
+        useIntersectionObserver: scope.$eval(attrs.useIo)
       };
+      console.log(attrOptions.useIntersectionObserver);
       var options = defaults;
       for (var k in attrOptions) {
         var v = attrOptions[k];
@@ -57,18 +59,19 @@ var ScrollTo = ['$window', 'scrollTo', function ($window, scrollTo) {
       } else {
         var scrollOffset = options.scrollOffset || 0;
         var scrollHandler = _.throttle(function (e) {
-          var docViewTop = $($window).scrollTop();
-          var docViewBottom = docViewTop + $($window).height();
-          var elemTop = $(element).offset().top;
-          var elemBottom = elemTop + $(element).height();
+          var docViewTop = $window.scrollY;
+          var docViewBottom = docViewTop + $window.innerHeight;
+          var elemTop = element[0].offsetTop;
+          var elemBottom = elemTop + element[0].offsetHeight;
           if (elemBottom <= docViewBottom + scrollOffset && elemTop >= docViewTop - scrollOffset) {
             scope.$apply(fn);
             if (options.unobserveInstantly) {
-              return $($window).off('scroll', scrollHandler);
+              return $window.removeEventListener('scroll', scrollHandler);
             }
           }
         }, options.throttleWait);
-        return $($window).on('scroll', scrollHandler);
+        return $window.addEventListener('scroll', scrollHandler);
+        $timeout(scrollHandler);
       }
     }
   };
@@ -95,15 +98,19 @@ var scrollToLazyLoad = ['scrollTo', function (scrollTo) {
     restrict: 'A',
     controller: ['$element', function ($element) {
       this.scrollOffset = scrollTo.scrollOffset;
+      this.aot = $element.attr('aot') || false;
       this.scrollHandler = function (e) {
-        if (angular.element($element).attr('lazy-src')) {
-          angular.element($element).attr('src', angular.element($element).attr('lazy-src'));
-          angular.element($element).removeAttr('lazy-src');
+        if ($element.attr('lazy-src')) {
+          $element.attr('src', $element.attr('lazy-src'));
+          $element.removeAttr('lazy-src');
+        }
+        if ($element.attr('use-io')) {
+          $element.removeAttr('use-io');
         }
       };
     }],
     controllerAs: 'll',
-    template: "<img scroll-to='ll.scrollHandler' />",
+    template: "<img scroll-to='ll.scrollHandler' use-io='!ll.aot' />",
     replace: true,
     priority: 50
   };

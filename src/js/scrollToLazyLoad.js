@@ -3,15 +3,19 @@ let scrollToLazyLoad = ['scrollTo', (scrollTo) => {
     restrict: 'A',
     controller: ['$element', function($element) {
       this.scrollOffset = scrollTo.scrollOffset;
+      this.aot = $element.attr('aot') || false;
       this.scrollHandler = (e) => {
-        if (angular.element($element).attr('lazy-src')) {
-          angular.element($element).attr('src', angular.element($element).attr('lazy-src'));
-          angular.element($element).removeAttr('lazy-src');
+        if ($element.attr('lazy-src')) {
+          $element.attr('src', $element.attr('lazy-src'));
+          $element.removeAttr('lazy-src');
+        }
+        if ($element.attr('use-io')) {
+          $element.removeAttr('use-io');
         }
       }
     }],
     controllerAs: 'll',
-    template: "<img scroll-to='ll.scrollHandler' />",
+    template: "<img scroll-to='ll.scrollHandler' use-io='!ll.aot' />",
     replace: true,
     priority: 50
   }

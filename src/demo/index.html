@@ -1,6 +1,7 @@
 <html>
   <head>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script type="text/javascript" src="../../dist/js/scrollTo.js"></script>
     <style type="text/css">
       img {
@@ -16,9 +17,9 @@
       <div style="height: 1000px;"></div>
       <div scroll-to="doSomething"></div>
 
-      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
-      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
-      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load aot="true"/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load aot="true"/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load aot="true" scroll-offset="300"/>
       <div style="height: 200px;"></div>
       <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
       <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>

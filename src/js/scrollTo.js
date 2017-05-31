@@ -1,4 +1,4 @@
-let ScrollTo = ['$window', 'scrollTo', ($window, scrollTo) => {
+let ScrollTo = ['$window', '$timeout', 'scrollTo', ($window, $timeout, scrollTo) => {
   let defaults = {
     intersectionThreshold: 0.1,
     throttleWait: 20,
@@ -18,8 +18,10 @@ let ScrollTo = ['$window', 'scrollTo', ($window, scrollTo) => {
         unobserveInstantly: scope.$eval(attrs.scrollToUnobserve),
         intersectionRoot: scope.$eval(attrs.scrollToRoot),
         intersectionRootMargin: scope.$eval(attrs.scrollToRootMargin),
-        scrollOffset: scope.$eval(attrs.scrollOffset)
+        scrollOffset: scope.$eval(attrs.scrollOffset),
+        useIntersectionObserver: scope.$eval(attrs.useIo)
       };
+      console.log(attrOptions.useIntersectionObserver);
       let options = defaults;
       for (let k in attrOptions) {
         let v = attrOptions[k];
@@ -52,20 +54,21 @@ let ScrollTo = ['$window', 'scrollTo', ($window, scrollTo) => {
       } else {
         let scrollOffset = options.scrollOffset || 0;
         let scrollHandler = _.throttle(function(e) {
-          let docViewTop = $($window).scrollTop();
-          let docViewBottom = docViewTop + $($window).height();
-          let elemTop = $(element).offset().top;
-          let elemBottom = elemTop + $(element).height();
+          let docViewTop = $window.scrollY;
+          let docViewBottom = docViewTop + $window.innerHeight;
+          let elemTop = element[0].offsetTop;
+          let elemBottom = elemTop + element[0].offsetHeight;
           if ((elemBottom <= docViewBottom + scrollOffset) && (elemTop >= docViewTop - scrollOffset)) {
             scope.$apply(fn);
             if (options.unobserveInstantly) {
-              return $($window).off('scroll', scrollHandler);
+              return $window.removeEventListener('scroll', scrollHandler);
             }
           }
         }
         , options.throttleWait
         );
-        return $($window).on('scroll', scrollHandler);
+        return $window.addEventListener('scroll', scrollHandler);
+        $timeout(scrollHandler);
       }
     }
   };
