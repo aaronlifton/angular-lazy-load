@@ -1,17 +1,20 @@
 {
-  "name": "angular-scroll-to",
+  "name": "angular-lazy-load",
   "version": "1.0.0",
-  "description": "scroll to element event handler and lazy load directive for angular",
+  "description": "2kb lazy load directive for angular. includes directive for lazy loading images.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aaronlifton2/angular-scroll-to.git"
+    "url": "git+https://github.com/aaronlifton2/angular-lazy-load.git"
   },
   "keywords": [
     "angular",
+    "lazyload",
+    "lazy-load",
+    "lazy load",
     "scroll",
     "IntersectionObserver",
     "directive"
@@ -19,16 +22,23 @@
   "author": "Aaron Lifton",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/aaronlifton2/angular-scroll-to/issues"
+    "url": "https://github.com/aaronlifton2/angular-lazy-load/issues"
   },
-  "homepage": "https://github.com/aaronlifton2/angular-scroll-to#readme",
+  "homepage": "https://github.com/aaronlifton2/angular-lazy-load#readme",
+  "dependencies": {
+    "angular": "^1.6.4"
+  },
   "devDependencies": {
     "angular": "^1.6.4",
     "babel-preset-env": "^1.4.0",
+    "babel-preset-latest": "^6.24.1",
+    "google-closure-compiler": "^20170521.0.0",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
     "gulp-concat": "^2.6.1",
     "jquery": "^3.2.1",
-    "underscore": "^1.8.3"
+    "lodash": "^4.17.4",
+    "rollup": "^0.41.6",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-closure-compiler-js": "^1.0.4"
   }
 }

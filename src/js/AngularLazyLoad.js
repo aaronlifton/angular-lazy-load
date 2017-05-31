@@ -1,8 +1,8 @@
-let scrollToLazyLoad = ['scrollTo', (scrollTo) => {
+let AngularLazyLoad = ['lazyLoad', (lazyLoad) => {
   return {
     restrict: 'A',
     controller: ['$element', function($element) {
-      this.scrollOffset = scrollTo.scrollOffset;
+      this.scrollOffset = lazyLoad.scrollOffset;
       this.aot = $element.attr('aot') || false;
       this.scrollHandler = (e) => {
         if ($element.attr('lazy-src')) {
@@ -21,4 +21,4 @@ let scrollToLazyLoad = ['scrollTo', (scrollTo) => {
   }
 }];
 
-angular.module('angular-scroll-to').directive('lazyLoad', scrollToLazyLoad);
+export default AngularLazyLoad;

@@ -1,4 +1,6 @@
-let ScrollTo = ['$window', '$timeout', 'scrollTo', ($window, $timeout, scrollTo) => {
+import _ from './LodashShim.js';
+
+let ScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoad) => {
   let defaults = {
     intersectionThreshold: 0.1,
     throttleWait: 20,
@@ -6,7 +8,7 @@ let ScrollTo = ['$window', '$timeout', 'scrollTo', ($window, $timeout, scrollTo)
     useIntersectionObserver: true,
     intersectionRoot: null,
     intersectionRootMargin: "0px",
-    scrollOffset: scrollTo.scrollOffset
+    scrollOffset: lazyLoad.scrollOffset
   };
   return {
     restrict: 'A',
@@ -21,7 +23,6 @@ let ScrollTo = ['$window', '$timeout', 'scrollTo', ($window, $timeout, scrollTo)
         scrollOffset: scope.$eval(attrs.scrollOffset),
         useIntersectionObserver: scope.$eval(attrs.useIo)
       };
-      console.log(attrOptions.useIntersectionObserver);
       let options = defaults;
       for (let k in attrOptions) {
         let v = attrOptions[k];
@@ -67,11 +68,11 @@ let ScrollTo = ['$window', '$timeout', 'scrollTo', ($window, $timeout, scrollTo)
         }
         , options.throttleWait
         );
-        return $window.addEventListener('scroll', scrollHandler);
-        $timeout(scrollHandler);
+        $window.addEventListener('scroll', scrollHandler);
+        return $timeout(scrollHandler);
       }
     }
   };
 }];
 
-angular.module('angular-scroll-to', []).directive('scrollTo', ScrollTo);
+export default ScrollTo;

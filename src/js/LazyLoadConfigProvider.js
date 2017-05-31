@@ -1,4 +1,4 @@
-let scrollToProvider = function() {
+let LazyLoadProvider = function() {
   this.scrollOffset = null;
   this.setScrollOffset = function(newScrollOffset) {
     this.scrollOffset = newScrollOffset;
@@ -8,4 +8,4 @@ let scrollToProvider = function() {
   };
 };
 
-angular.module('angular-scroll-to').provider('scrollTo', scrollToProvider);
+export default LazyLoadProvider;
