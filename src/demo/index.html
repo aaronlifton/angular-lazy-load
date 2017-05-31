@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+    <script type="text/javascript" src="../../dist/js/scrollTo.js"></script>
+    <style type="text/css">
+      img {
+        width: 150px;
+        height: 150px;
+        display: block;
+        background: whitesmoke;
+      }
+    </style>
+  </head>
+  <body ng-app="myApp">
+    <div ng-controller="myController">
+      <div style="height: 1000px;"></div>
+      <div scroll-to="doSomething"></div>
+
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+      <div style="height: 200px;"></div>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+      <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+    </div>
+    <script type="text/javascript">
+      angular.module('myApp', ['angular-scroll-to']).controller('myController', ['$scope',
+        function($scope) {
+          $scope.doSomething = function() {
+            console.log("Doing something!");
+          }
+        }
+      ]);
+    </script>
+  </body>
+</html>

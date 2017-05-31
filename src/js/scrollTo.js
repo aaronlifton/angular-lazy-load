@@ -1,4 +1,4 @@
-let ScrollTo = ['$window', ($window) => {
+let ScrollTo = ['$window', 'scrollTo', ($window, scrollTo) => {
   let defaults = {
     intersectionThreshold: 0.1,
     throttleWait: 20,
@@ -6,7 +6,7 @@ let ScrollTo = ['$window', ($window) => {
     useIntersectionObserver: true,
     intersectionRoot: null,
     intersectionRootMargin: "0px",
-    scrollOffset: null
+    scrollOffset: scrollTo.scrollOffset
   };
   return {
     restrict: 'A',

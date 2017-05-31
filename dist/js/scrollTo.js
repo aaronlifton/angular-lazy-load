@@ -1,6 +1,6 @@
 'use strict';
 
-var ScrollTo = ['$window', function ($window) {
+var ScrollTo = ['$window', 'scrollTo', function ($window, scrollTo) {
   var defaults = {
     intersectionThreshold: 0.1,
     throttleWait: 20,
@@ -8,7 +8,7 @@ var ScrollTo = ['$window', function ($window) {
     useIntersectionObserver: true,
     intersectionRoot: null,
     intersectionRootMargin: "0px",
-    scrollOffset: null
+    scrollOffset: scrollTo.scrollOffset
   };
   return {
     restrict: 'A',
@@ -75,3 +75,38 @@ var ScrollTo = ['$window', function ($window) {
 }];
 
 angular.module('angular-scroll-to', []).directive('scrollTo', ScrollTo);
+'use strict';
+
+var scrollToProvider = function scrollToProvider() {
+  this.scrollOffset = null;
+  this.setScrollOffset = function (newScrollOffset) {
+    this.scrollOffset = newScrollOffset;
+  };
+  this.$get = function () {
+    return this;
+  };
+};
+
+angular.module('angular-scroll-to').provider('scrollTo', scrollToProvider);
+'use strict';
+
+var scrollToLazyLoad = function scrollToLazyLoad() {
+  return {
+    restrict: 'A',
+    controller: ['$element', function ($element) {
+      this.scrollOffset = "80";
+      this.scrollHandler = function (e) {
+        if (angular.element($element).attr('lazy-src')) {
+          angular.element($element).attr('src', angular.element($element).attr('lazy-src'));
+          angular.element($element).removeAttr('lazy-src');
+        }
+      };
+    }],
+    controllerAs: 'll',
+    template: "<img scroll-to='ll.scrollHandler' />",
+    replace: true,
+    priority: 50
+  };
+};
+
+angular.module('angular-scroll-to').directive('lazyLoad', scrollToLazyLoad);

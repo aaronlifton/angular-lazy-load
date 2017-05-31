@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const babel = require('gulp-babel');
+const concat = require('gulp-concat');
 
 gulp.task('default', ['build']);
 
@@ -8,7 +9,8 @@ gulp.task('build', () =>
     .pipe(babel({
       presets: ['env']
     }))
-    .pipe(gulp.dest('dist'))
+    .pipe(concat('scrollTo.js'))
+    .pipe(gulp.dest('dist/js'))
 );
 
 gulp.task('watch', ['build'], () =>
