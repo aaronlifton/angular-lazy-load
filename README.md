@@ -1,16 +1,16 @@
-# angular-scroll-to
-Simple angular directive to handle events when a user scrolls to an element. By default, it uses IntersectionObserver instead of attaching an event listener to the document. Optionally, you can use the event listener instead.
+# angular-lazy-load
+2kb lazy load module for angular. Only requirement is angular! By default, it uses IntersectionObserver instead of attaching an event listener to the document. Optionally, you can use the event listener instead. Comes with a `lazy-load` directive for lazy loading images, but you can extend the `scroll-to` directive to lazy load anything!
 
 [Plunker Demo](https://embed.plnkr.co/q9Zm5IpRd4fpiY83DZIm/)
 
 ## Install
 ```
-npm install angular-scroll-to
+npm install angular-lazy-load
 ```
 
 ## Usage
 ```javascript
-angular.module('myApp', ['angular-scroll-to']).controller('myController',
+angular.module('myApp', ['angular-lazy-load']).controller('myController',
     ['$scope', function() {
         $scope.doSomething = function() {
           console.log("Doing something!");
