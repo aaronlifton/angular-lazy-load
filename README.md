@@ -41,5 +41,10 @@ angular.module('myApp', ['angular-lazy-load']).controller('myController',
 ## Development
 ```
 npm install
-gulp watch
+npm run dev
+```
+
+## Build
+```
+npm run build
 ```

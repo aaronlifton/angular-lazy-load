@@ -4,7 +4,9 @@
   "description": "2kb lazy load directive for angular. includes directive for lazy loading images.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "repository": {
     "type": "git",
@@ -33,12 +35,10 @@
     "babel-preset-env": "^1.4.0",
     "babel-preset-latest": "^6.24.1",
     "google-closure-compiler": "^20170521.0.0",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
     "rollup": "^0.41.6",
-    "rollup-plugin-babel": "^2.7.1",
-    "rollup-plugin-closure-compiler-js": "^1.0.4"
+    "rollup-plugin-closure-compiler-js": "^1.0.4",
+    "rollup-watch": "^3.2.2"
   }
 }

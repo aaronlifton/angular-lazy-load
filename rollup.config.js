@@ -1,14 +1,13 @@
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+const closure = require('rollup-plugin-closure-compiler-js');
 
 export default {
   entry: 'src/js/Main.js',
-  format: 'cjs',
+  dest: 'dist/js/AngularLazyLoad.min.js',
+  format: 'iife',
+  sourceMap: 'true',
   plugins: [
-    resolve(),
-    babel({
-      exclude: 'node_modules/**' // only transpile our source code
+    closure({
+      compilationLevel: 'SIMPLE'
     })
-  ],
-  dest: 'bundle.js'
+  ]
 };
