@@ -1,8 +1,8 @@
-let scrollToLazyLoad = () => {
+let scrollToLazyLoad = ['scrollTo', (scrollTo) => {
   return {
     restrict: 'A',
     controller: ['$element', function($element) {
-      this.scrollOffset = "80";
+      this.scrollOffset = scrollTo.scrollOffset;
       this.scrollHandler = (e) => {
         if (angular.element($element).attr('lazy-src')) {
           angular.element($element).attr('src', angular.element($element).attr('lazy-src'));
@@ -15,6 +15,6 @@ let scrollToLazyLoad = () => {
     replace: true,
     priority: 50
   }
-};
+}];
 
 angular.module('angular-scroll-to').directive('lazyLoad', scrollToLazyLoad);

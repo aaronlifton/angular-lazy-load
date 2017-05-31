@@ -90,11 +90,11 @@ var scrollToProvider = function scrollToProvider() {
 angular.module('angular-scroll-to').provider('scrollTo', scrollToProvider);
 'use strict';
 
-var scrollToLazyLoad = function scrollToLazyLoad() {
+var scrollToLazyLoad = ['scrollTo', function (scrollTo) {
   return {
     restrict: 'A',
     controller: ['$element', function ($element) {
-      this.scrollOffset = "80";
+      this.scrollOffset = scrollTo.scrollOffset;
       this.scrollHandler = function (e) {
         if (angular.element($element).attr('lazy-src')) {
           angular.element($element).attr('src', angular.element($element).attr('lazy-src'));
@@ -107,6 +107,6 @@ var scrollToLazyLoad = function scrollToLazyLoad() {
     replace: true,
     priority: 50
   };
-};
+}];
 
 angular.module('angular-scroll-to').directive('lazyLoad', scrollToLazyLoad);
