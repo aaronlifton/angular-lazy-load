@@ -1,0 +1,32 @@
+{
+  "name": "angular-lazy-load",
+  "description": "2kb lazy load directive for angular. includes directive for lazy loading images.",
+  "main": "dist/js/AngularLazyLoad.min.js",
+  "authors": [
+    "Aaron Lifton"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "lazyload",
+    "lazy-load",
+    "lazy",
+    "load",
+    "scroll",
+    "on-scroll-to",
+    "angular-lazy-load",
+    "IntersectionObserver",
+    "directive"
+  ],
+  "homepage": "https://github.com/aaronlifton2/angular-lazy-load",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.4"
+  }
+}
