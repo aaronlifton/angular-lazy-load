@@ -18,6 +18,8 @@
     "lazy-load",
     "lazy load",
     "scroll",
+    "on-scroll-to",
+    "angular-lazy-load",
     "IntersectionObserver",
     "directive"
   ],
