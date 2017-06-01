@@ -55,11 +55,13 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
       } else {
         let scrollOffset = options.scrollOffset || 0;
         let scrollHandler = _.throttle(function(e) {
-          let docViewTop = $window.scrollY;
-          let docViewBottom = docViewTop + $window.innerHeight;
-          let elemTop = element[0].offsetTop;
-          let elemBottom = elemTop + element[0].offsetHeight;
-          if ((elemBottom <= docViewBottom + scrollOffset) && (elemTop >= docViewTop - scrollOffset)) {
+          let topOffset = (element) => element[0].getBoundingClientRect().top
+            + window.pageYOffset
+            - element[0].ownerDocument.documentElement.clientTop;
+          let rootEl = angular.element(options.intersectionRoot);
+          let fold = (rootEl[0]) ? topOffset(rootEl) : (window.innerHeight + window.pageYOffset);
+          if (fold > topOffset(element) - scrollOffset) {
+            console.log("lazy loading");
             scope.$apply(fn);
             if (options.unobserveInstantly) {
               return $window.removeEventListener('scroll', scrollHandler);

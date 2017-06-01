@@ -1,5 +1,5 @@
 # angular-lazy-load
-2kb lazy load module for angular. Only requirement is angular! By default, it uses IntersectionObserver instead of attaching an event listener to the document. Optionally, you can use the event listener instead. Comes with a `lazy-load` directive for lazy loading images, but you can extend the `on-scroll-to` directive to lazy load anything!
+2kb lazy load module for angular. Only requirement is angular! By default, it uses IntersectionObserver instead of attaching an event listener to the document. Optionally, you can use the event listener instead to load things ahead of time. Comes with a `lazy-load` directive for lazy loading images, but you can extend the `on-scroll-to` directive to lazy load anything! Also, to detect scrolling in a container, set the `scroll-root` attribute to a selector.
 
 [Plunker Demo](https://embed.plnkr.co/q9Zm5IpRd4fpiY83DZIm/)
 
