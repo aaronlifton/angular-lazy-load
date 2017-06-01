@@ -61,7 +61,6 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
           let rootEl = angular.element(options.intersectionRoot);
           let fold = (rootEl[0]) ? topOffset(rootEl) : (window.innerHeight + window.pageYOffset);
           if (fold > topOffset(element) - scrollOffset) {
-            console.log("lazy loading");
             scope.$apply(fn);
             if (options.unobserveInstantly) {
               return $window.removeEventListener('scroll', scrollHandler);
