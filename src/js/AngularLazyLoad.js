@@ -15,7 +15,7 @@ let AngularLazyLoad = ['lazyLoad', (lazyLoad) => {
       }
     }],
     controllerAs: 'll',
-    template: "<img scroll-to='ll.scrollHandler' use-io='!ll.aot' />",
+    template: "<img on-scroll-to='ll.scrollHandler' use-io='!ll.aot' />",
     replace: true,
     priority: 50
   }

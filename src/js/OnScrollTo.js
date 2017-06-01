@@ -1,11 +1,11 @@
 import _ from './LodashShim.js';
 
-let ScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoad) => {
+let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoad) => {
   let defaults = {
     intersectionThreshold: 0.1,
     throttleWait: 20,
     unobserveInstantly: true,
-    useIntersectionObserver: true,
+    useIntersectionObserver: lazyLoad.useIntersectionObserver,
     intersectionRoot: null,
     intersectionRootMargin: "0px",
     scrollOffset: lazyLoad.scrollOffset
@@ -13,13 +13,13 @@ let ScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoad)
   return {
     restrict: 'A',
     link(scope, element, attrs) {
-      let fn = scope.$eval(attrs.scrollTo);
+      let fn = scope.$eval(attrs.onScrollTo);
       let attrOptions = {
-        intersectionRatio: scope.$eval(attrs.scrollToThreshold),
-        throttleWait: scope.$eval(attrs.scrollToThrottle),
-        unobserveInstantly: scope.$eval(attrs.scrollToUnobserve),
-        intersectionRoot: scope.$eval(attrs.scrollToRoot),
-        intersectionRootMargin: scope.$eval(attrs.scrollToRootMargin),
+        intersectionRatio: scope.$eval(attrs.scrollThreshold),
+        throttleWait: scope.$eval(attrs.scrollThrottle),
+        unobserveInstantly: scope.$eval(attrs.scrollUnobserve),
+        intersectionRoot: scope.$eval(attrs.scrollRoot),
+        intersectionRootMargin: scope.$eval(attrs.scrollRootMargin),
         scrollOffset: scope.$eval(attrs.scrollOffset),
         useIntersectionObserver: scope.$eval(attrs.useIo)
       };
@@ -75,4 +75,4 @@ let ScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoad)
   };
 }];
 
-export default ScrollTo;
+export default OnScrollTo;

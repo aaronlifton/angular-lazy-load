@@ -14,7 +14,7 @@
   <body ng-app="myApp">
     <div ng-controller="myController">
       <div style="height: 1000px;"></div>
-      <div scroll-to="doSomething"></div>
+      <div on-scroll-to="doSomething"></div>
 
       <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load aot="true"/>
       <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load aot="true"/>
@@ -25,13 +25,17 @@
       <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
     </div>
     <script type="text/javascript">
-      angular.module('myApp', ['angular-lazy-load']).controller('myController', ['$scope',
-        function($scope) {
-          $scope.doSomething = function() {
-            console.log("Doing something!");
+      angular.module('myApp', ['angular-lazy-load'])
+        .config(function(lazyLoadProvider) {
+          lazyLoadProvider.setUseIntersectionObserver(true);
+        })
+        .controller('myController', ['$scope',
+          function($scope) {
+            $scope.doSomething = function() {
+              console.log("Doing something!");
+            }
           }
-        }
-      ]);
+        ]);
     </script>
   </body>
 </html>
