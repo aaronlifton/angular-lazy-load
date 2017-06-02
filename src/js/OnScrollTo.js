@@ -57,6 +57,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
       } else {
         let scrollOffset = options.scrollOffset || 0;
         let scrollHandler = _.throttle(function(e) {
+          if (element[0].offsetParent == null) { return false };
           let topOffset = (element) => element[0].getBoundingClientRect().top
             + window.pageYOffset
             - element[0].ownerDocument.documentElement.clientTop;
