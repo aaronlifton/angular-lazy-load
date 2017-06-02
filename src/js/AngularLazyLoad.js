@@ -1,4 +1,4 @@
-let AngularLazyLoad = ['ngLazyLoad', (lazyLoad) => {
+let AngularLazyLoad = ['lazyLoad', (lazyLoad) => {
   return {
     restrict: 'A',
     controller: ['$element', function($element) {
