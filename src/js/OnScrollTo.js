@@ -5,6 +5,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
     intersectionThreshold: 0.1,
     throttleWait: 20,
     unobserveInstantly: true,
+    observeInstantly: true,
     useIntersectionObserver: lazyLoad.useIntersectionObserver,
     intersectionRoot: null,
     intersectionRootMargin: "0px",
@@ -18,6 +19,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         intersectionRatio: scope.$eval(attrs.scrollThreshold),
         throttleWait: scope.$eval(attrs.scrollThrottle),
         unobserveInstantly: scope.$eval(attrs.scrollUnobserve),
+        observeInstantly: scope.$eval(attrs.scrollObserve),
         intersectionRoot: scope.$eval(attrs.scrollRoot),
         intersectionRootMargin: scope.$eval(attrs.scrollRootMargin),
         scrollOffset: scope.$eval(attrs.scrollOffset),
@@ -59,7 +61,8 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
             + window.pageYOffset
             - element[0].ownerDocument.documentElement.clientTop;
           let rootEl = angular.element(options.intersectionRoot);
-          let fold = (rootEl[0]) ? topOffset(rootEl) : (window.innerHeight + window.pageYOffset);
+          let fold = (rootEl[0]) ? (topOffset(rootEl) + rootEl[0].offsetHeight)
+            : (window.innerHeight + window.pageYOffset);
           if (fold > topOffset(element) - scrollOffset) {
             scope.$apply(fn);
             if (options.unobserveInstantly) {
@@ -70,7 +73,9 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         , options.throttleWait
         );
         $window.addEventListener('scroll', scrollHandler);
-        return $timeout(scrollHandler);
+        if (options.observeInstantly) {
+          $timeout(scrollHandler);
+        }
       }
     }
   };

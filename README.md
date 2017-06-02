@@ -37,7 +37,7 @@ angular.module('myApp', ['angular-lazy-load'])
 
 ### Default options
 ```html
-<div on-scroll-to="doSomething" scroll-threshold="0.1" scroll-throttle="20" scroll-unobserve="true" scroll-root="null" scroll-root-margin="0px" scroll-offset="0" use-io="true"></div>
+<div on-scroll-to="doSomething" scroll-threshold="0.1" scroll-throttle="20" scroll-unobserve="true" scroll-root="null" scroll-root-margin="0px" scroll-offset="0" use-io="true" scroll-observe="true"></div>
 
 <img lazy-src="myImg" lazy-load />
 ```
