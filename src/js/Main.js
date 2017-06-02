@@ -5,4 +5,4 @@ import AngularLazyLoad from './AngularLazyLoad.js';
 angular.module('angular-lazy-load', [])
   .provider('lazyLoad', LazyLoadProvider)
   .directive('onScrollTo', OnScrollTo)
-  .directive('lazyLoad', AngularLazyLoad);
+  .directive('ngLazyLoad', AngularLazyLoad);

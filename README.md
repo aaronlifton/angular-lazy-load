@@ -30,7 +30,7 @@ angular.module('myApp', ['angular-lazy-load'])
     <div on-scroll-to="doSomething"></div>
 
     <div style="height: 1000px;"></div>
-    <img lazy-src="http://lorempixel.com/300/300/cats" lazy-load/>
+    <img lazy-src="http://lorempixel.com/300/300/cats" ng-lazy-load/>
   </div>
 </body>
 ```
@@ -39,7 +39,7 @@ angular.module('myApp', ['angular-lazy-load'])
 ```html
 <div on-scroll-to="doSomething" scroll-threshold="0.1" scroll-throttle="20" scroll-unobserve="true" scroll-root="null" scroll-root-margin="0px" scroll-offset="0" use-io="true" scroll-observe="true"></div>
 
-<img lazy-src="myImg" lazy-load />
+<img lazy-src="myImg" ng-lazy-load />
 ```
 
 ## Development
