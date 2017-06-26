@@ -56,6 +56,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         return io.observe(element[0]);
       } else {
         let scrollOffset = options.scrollOffset || 0;
+
         let scrollHandler = _.throttle(function(e) {
           if (element[0].offsetParent == null) { return false };
           let topOffset = (element) => element[0].getBoundingClientRect().top
@@ -73,9 +74,23 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         }
         , options.throttleWait
         );
-        $window.addEventListener('scroll', scrollHandler);
-        if (options.observeInstantly) {
-          $timeout(scrollHandler);
+
+        let inIframe = () => {
+          try {
+            return window.self !== window.top;
+          } catch (e) {
+            return true;
+          }
+        }
+
+        if (inIframe) {
+          scope.$apply(fn);
+        } else {
+          $window.addEventListener('scroll', scrollHandler);
+
+          if (options.observeInstantly) {
+            $timeout(scrollHandler);
+          }
         }
       }
     }
