@@ -75,13 +75,13 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         , options.throttleWait
         );
 
-        let inIframe = () => {
+        let inIframe = (() => {
           try {
             return window.self !== window.top;
           } catch (e) {
             return true;
           }
-        }
+        })();
 
         if (inIframe) {
           scope.$apply(fn);
