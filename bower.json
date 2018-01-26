@@ -1,5 +1,6 @@
 {
   "name": "angular-lazy-load",
+  "version": "1.1.2",
   "description": "2kb lazy load directive for angular. includes directive for lazy loading images.",
   "main": "dist/js/AngularLazyLoad.min.js",
   "authors": [
