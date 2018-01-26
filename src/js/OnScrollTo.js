@@ -15,6 +15,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
     restrict: 'A',
     link(scope, element, attrs) {
       let fn = scope.$eval(attrs.onScrollTo);
+      // compiles into less code than iterating over keys or array of strings
       let attrOptions = {
         intersectionRatio: scope.$eval(attrs.scrollThreshold),
         throttleWait: scope.$eval(attrs.scrollThrottle),
@@ -55,15 +56,14 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
           });
         return io.observe(element[0]);
       } else {
-        let scrollOffset = options.scrollOffset || 0;
+        const scrollOffset = options.scrollOffset || 0;
 
-        let scrollHandler = _.throttle(function(e) {
-          if (element[0].offsetParent == null) { return false };
-          let topOffset = (element) => element[0].getBoundingClientRect().top
+        const checkScrollOffset = function() {
+          const topOffset = (element) => element[0].getBoundingClientRect().top
             + window.pageYOffset
             - element[0].ownerDocument.documentElement.clientTop;
-          let rootEl = angular.element(options.intersectionRoot);
-          let fold = (rootEl[0]) ? (topOffset(rootEl) + rootEl[0].offsetHeight)
+          const rootEl = angular.element(options.intersectionRoot);
+          const fold = (rootEl[0]) ? (topOffset(rootEl) + rootEl[0].offsetHeight)
             : (window.innerHeight + window.pageYOffset);
           if (fold > topOffset(element) - scrollOffset) {
             scope.$apply(fn);
@@ -72,10 +72,14 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
             }
           }
         }
+        const scrollHandler = _.throttle(function(e) {
+          if (element[0].offsetParent == null) { return false };
+          checkScrollOffset()
+        }
         , options.throttleWait
         );
 
-        let inIframe = (() => {
+        const inIframe = (() => {
           try {
             return window.self !== window.top;
           } catch (e) {
@@ -92,6 +96,17 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
             $timeout(scrollHandler);
           }
         }
+        // check when directive is linked
+        checkScrollOffset();
+
+        // clean up event listeners when directive is removed
+        scope.$on('$destroy', function() {
+          if (options.useIntersectionObserver) {
+            io.unobserve(element[0]);
+          } else {
+            $window.removeEventListener('scroll', scrollHandler);
+          }
+        })
       }
     }
   };
