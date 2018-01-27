@@ -7,7 +7,7 @@ export default {
   sourceMap: false,
   plugins: [
     closure({
-      compilationLevel: 'SIMPLE'
+      compilationLevel: 'SIMPLE',
     })
   ]
 };

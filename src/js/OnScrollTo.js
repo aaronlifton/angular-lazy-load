@@ -72,9 +72,10 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
             }
           }
         }
+
         const scrollHandler = _.throttle(function(e) {
           if (element[0].offsetParent == null) { return false };
-          checkScrollOffset()
+          checkScrollOffset();
         }
         , options.throttleWait
         );
@@ -96,8 +97,14 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
             $timeout(scrollHandler);
           }
         }
-        // check when directive is linked
-        checkScrollOffset();
+
+        if (!!attrs.trigger) {
+          scope.$watch(attrs.trigger, (newVal, oldVal) => {
+            if (newVal !== oldVal) {
+              fn();
+            }
+          });
+        }
 
         // clean up event listeners when directive is removed
         scope.$on('$destroy', function() {
