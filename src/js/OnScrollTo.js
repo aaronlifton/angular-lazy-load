@@ -31,6 +31,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         let v = attrOptions[k];
         if (v != null) { options[k] = v; }
       }
+      let io;
       if (options.useIntersectionObserver &&
         (typeof IntersectionObserver !== 'undefined')) {
         let rootMargin = "0px";
@@ -43,7 +44,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
             rootMargin = `0px 0px 0px ${options.scrollOffset}px`;
           }
         }
-        var io = new IntersectionObserver(function(entries) {
+        io = new IntersectionObserver(function(entries) {
           if (entries[0].intersectionRatio == 0) { return; }
           scope.$apply(fn);
           if (options.unobserveInstantly) {
@@ -109,7 +110,7 @@ let OnScrollTo = ['$window', '$timeout', 'lazyLoad', ($window, $timeout, lazyLoa
         // clean up event listeners when directive is removed
         scope.$on('$destroy', function() {
           if (options.useIntersectionObserver) {
-            io.unobserve(element[0]);
+            io && io.unobserve(element[0]);
           } else {
             $window.removeEventListener('scroll', scrollHandler);
           }
